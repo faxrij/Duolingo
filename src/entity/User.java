@@ -16,34 +16,32 @@ public class User implements IUser, Comparator<User>, Serializable {
     private int points;
     private Language language;
 
-    public String getPassword() {
-        return password;
-    }
+    private int streak;
 
-    public void setLanguage(Language language) {
-        this.language = language;
+    private Unit unit;
+
+    private Quiz toBeDoneQuiz;
+
+    public Quiz getLastDoneQuiz() {
+        return toBeDoneQuiz;
+    }
+    public void setToBeDoneQuiz(Quiz toBeDoneQuiz) {
+        this.toBeDoneQuiz = toBeDoneQuiz;
+    }
+    public League getLeague() {
+        return league;
     }
 
     public Language getLanguage() {
         return language;
     }
 
-    private int streak;
-
-    public League getLeague() {
-        return league;
+    public String getPassword() {
+        return password;
     }
 
-    private Unit unit;
-
-    public void setLastDoneQuiz(Quiz lastDoneQuiz) {
-        this.lastDoneQuiz = lastDoneQuiz;
-    }
-
-    private Quiz lastDoneQuiz;
-
-    public Quiz getLastDoneQuiz() {
-        return lastDoneQuiz;
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
     public void setUnit(Unit unit) {
@@ -91,12 +89,12 @@ public class User implements IUser, Comparator<User>, Serializable {
     public void takeQuiz(Quiz quiz) {
         Random rand = new Random();
         List<Question> questions = quiz.getQuestionList();
+
         for (Question temp: questions) {
             if (rand.nextBoolean()) {
                 this.points+= temp.getPoint();
             }
         }
-
     }
 
     @Override

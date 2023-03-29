@@ -1,5 +1,6 @@
 package CsvGenerator;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
@@ -8,6 +9,10 @@ import Constant.Constants;
 public class WriteLanguagesFile {
     public static void generate() {
         try {
+            File file = new File("languages.csv");
+            if(file.length()!=0) {
+                return;
+            }
             FileWriter writer = new FileWriter("languages.csv");
 
             Random rand = new Random();
@@ -24,7 +29,7 @@ public class WriteLanguagesFile {
                     for (int j = 1; j <= numQuizzes; j++) {
 
                         while (true) {
-                            if (settingUpValuesForQuestionTypesReturnTrueIfMoreThan15(writer, rand, j)) continue;
+                            if (setUpRandomQuestions(writer, rand, j)) continue;
                             break;
                         }
                     }
@@ -38,7 +43,7 @@ public class WriteLanguagesFile {
         }
     }
 
-    private static boolean settingUpValuesForQuestionTypesReturnTrueIfMoreThan15(FileWriter writer, Random rand, int j) throws IOException {
+    private static boolean setUpRandomQuestions(FileWriter writer, Random rand, int j) throws IOException {
         int readingQuestions = rand.nextInt(12) + 1;
 
         int listeningQuestions = rand.nextInt(16 - readingQuestions) + 1;
@@ -66,7 +71,6 @@ public class WriteLanguagesFile {
                 .append(String.valueOf(readingQuestions)).append("R").append(";")
                 .append(String.valueOf(listeningQuestions)).append("L").append(";")
                 .append(String.valueOf(speakingQuestions)).append("S").append(";")
-                .append(String.valueOf(wordMatchingQuestions)).append("W")
-        ;
+                .append(String.valueOf(wordMatchingQuestions)).append("W");
     }
 }

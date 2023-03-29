@@ -25,14 +25,6 @@ public abstract class League implements ILeague {
         return userList.stream().sorted().collect(Collectors.toList());
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
     @Override
     public List<User> getTop3users() {
         return null;

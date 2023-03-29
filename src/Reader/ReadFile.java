@@ -12,18 +12,38 @@ public class ReadFile {
 
     public static List<User> readUsersFile(String filename) {
         List<User> users = new ArrayList<>(); //create a list
+
+
         try {
             File myObj = new File(filename);
             Scanner myReader = new Scanner(myObj);
+            List<Language> languageList = readLanguageFile();
+
             while (myReader.hasNextLine()) {
                 String fileLine = myReader.nextLine();
                 String[] line = fileLine.split(";");     //separate lines for get names,password attributes.
                 String name = line[0];                   //name
                 String password = line[1];      //password
-                
                 User user = new User(name, password);
+
+                if (line.length>2) {
+                    for (Language temp: languageList) {
+                        if (line[2].equals(temp.getName())) {
+                            user.setLanguage(temp);
+                            break;
+                        }
+                    }
+                    for (Unit temp: user.getLanguage().getUnits()) {
+                        if (temp.getName().equals(line[3])) {
+                            user.setUnit(temp);
+                        }
+                    }
+                    user.setPoints(Integer.parseInt(line[4]));
+                }
+
                 users.add(user); //add to the list.
             }
+            users = firstRunOnly(users, languageList);
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
@@ -32,11 +52,11 @@ public class ReadFile {
         return users;
     }
 
-    public static List<Language> readLanguageFile(String filename, List<User> users) {
+    public static List<Language> readLanguageFile() {
         List<Language> languages = new ArrayList<>();
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            BufferedReader reader = new BufferedReader(new FileReader("languages.csv"));
 
             String line;
 
@@ -65,24 +85,29 @@ public class ReadFile {
                 parsingUnitPart(splitPart, language);
             }
             reader.close();
-            for (User temp : users) {
-
-                Random rand = new Random();
-                Language language = languages.get(rand.nextInt(4));
-                language.addUser(temp);
-                temp.setLanguage(language);
-                temp.setLeague(language.getLeagues().get(0));
-                temp.getLeague().addUser(temp);
-                temp.setStreak(rand.nextInt(366));
-                temp.setUnit(language.getUnits().get(0));
-                temp.setLastDoneQuiz(language.getUnits().get(0).getQuizList().get(0));
-
-            }
             return languages;
         }
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static List<User> firstRunOnly(List<User> users, List<Language> languages) {
+        for (User temp : users) {
+            if (temp.getLanguage()!=null) {
+                break;
+            }
+            Random rand = new Random();
+            Language language = languages.get(rand.nextInt(4));
+            language.addUser(temp);
+            temp.setLanguage(language);
+            temp.setLeague(language.getLeagues().get(0));
+            temp.getLeague().addUser(temp);
+            temp.setStreak(rand.nextInt(366));
+            temp.setUnit(language.getUnits().get(0));
+            temp.setToBeDoneQuiz(language.getUnits().get(0).getQuizList().get(0));
+        }
+        return users;
     }
 
     private static List<League> setLeague() {
