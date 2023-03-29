@@ -51,7 +51,14 @@ public class Mediator {
             }
         }
         WriteUsersFile.writeIntoUsersFile(userList);
-    }
+        List<User> asd = languages.get(1).getLeagues().get(1).getTop3users();
+        for (User a:asd
+             ) {
+            System.out.println(a.getUserName());
+
+        }
+        }
+
 
     private static void setUnitAndQuizWhenNoOverlap(User user, int quizToBeTaken, Unit userUnit, int toBeIndex) {
         for (int i = 0; i < quizToBeTaken; i++) {

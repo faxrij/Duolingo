@@ -5,11 +5,10 @@ import entity.league.*;
 import entity.question.Question;
 
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-public class User implements IUser, Comparator<User>, Serializable {
+public class User implements IUser, Comparable<User>, Serializable {
     private String userName;
     private String password;
     private League league;
@@ -128,13 +127,8 @@ public class User implements IUser, Comparator<User>, Serializable {
     }
 
     @Override
-    public int compare(User user, User t1) {
-        if (user.getPoints() > t1.getPoints()) {
-            return 1;
-        }
-        else if (user.getPoints() < t1.getPoints()) {
-            return -1;
-        }
-        return 0;
+    public int compareTo(User u){
+        return Integer.compare(this.points, u.points);
+
     }
 }

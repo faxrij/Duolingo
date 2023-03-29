@@ -4,10 +4,11 @@ import Interface.ILeague;
 import entity.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class League implements ILeague {
+public abstract class League implements ILeague{
 
     private String name;
     private List<User> userList;
@@ -22,12 +23,14 @@ public abstract class League implements ILeague {
     }
 
     public List<User> getUserList() {
-        return userList.stream().sorted().collect(Collectors.toList());
+        Collections.sort(userList);
+
+        return userList;
     }
 
     @Override
     public List<User> getTop3users() {
-        return null;
+        return getUserList().subList(0,3);
     }
 
     @Override
@@ -36,8 +39,8 @@ public abstract class League implements ILeague {
     }
 
     @Override
-    public boolean removeUser(User user) {
-        return userList.remove(user);
+    public void removeUser(User user) {
+        userList.remove(user);
     }
 
     public abstract boolean checkRequirements(User user);

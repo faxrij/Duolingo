@@ -23,16 +23,18 @@ public class ReadFile {
                 String fileLine = myReader.nextLine();
                 String[] line = fileLine.split(";");     //separate lines for get names,password attributes.
                 String name = line[0];                   //name
-                String password = line[1];      //password
+                String password = line[1];              //password
                 User user = new User(name, password);
 
-                if (line.length>2) {
+                if (line.length > 2) {
                     for (Language temp: languageList) {
                         if (line[2].equals(temp.getName())) {
                             user.setLanguage(temp);
+                            temp.addUser(user);
                             break;
                         }
                     }
+
                     for (Unit temp: user.getLanguage().getUnits()) {
                         if (temp.getName().equals(line[3])) {
                             user.setUnit(temp);
@@ -43,8 +45,10 @@ public class ReadFile {
 
                 users.add(user); //add to the list.
             }
-            users = firstRunOnly(users, languageList);
+
+            firstRunOnly(users, languageList);
             myReader.close();
+
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -92,7 +96,7 @@ public class ReadFile {
         }
     }
 
-    private static List<User> firstRunOnly(List<User> users, List<Language> languages) {
+    private static void firstRunOnly(List<User> users, List<Language> languages) {
         for (User temp : users) {
             if (temp.getLanguage()!=null) {
                 break;
@@ -107,7 +111,6 @@ public class ReadFile {
             temp.setUnit(language.getUnits().get(0));
             temp.setToBeDoneQuiz(language.getUnits().get(0).getQuizList().get(0));
         }
-        return users;
     }
 
     private static List<League> setLeague() {
