@@ -1,9 +1,7 @@
 package Reader;
 
-import entity.Language;
-import entity.Quiz;
-import entity.Unit;
-import entity.User;
+import entity.*;
+import entity.league.*;
 
 import java.io.*;
 import java.util.*;
@@ -22,7 +20,7 @@ public class ReadFile {
                 String[] line = fileLine.split(";");     //separate lines for get names,password attributes.
                 String name = line[0];                   //name
                 String password = line[1];      //password
-
+                
                 User user = new User(name, password);
                 users.add(user); //add to the list.
             }
@@ -34,7 +32,7 @@ public class ReadFile {
         return users;
     }
 
-    public static List<Language> readLanguageFile(String filename) {
+    public static List<Language> readLanguageFile(String filename, List<User> users) {
         List<Language> languages = new ArrayList<>();
 
         try {
@@ -59,6 +57,7 @@ public class ReadFile {
                 // Create new language if it doesn't exist
                 if (language == null) {
                     language = new Language(languageName);
+                    language.setLeagues(setLeague());
                     languages.add(language);
                 }
 
@@ -66,11 +65,41 @@ public class ReadFile {
                 parsingUnitPart(splitPart, language);
             }
             reader.close();
+            for (User temp : users) {
+
+                Random rand = new Random();
+                Language language = languages.get(rand.nextInt(4));
+                language.addUser(temp);
+                temp.setLanguage(language);
+                temp.setLeague(language.getLeagues().get(0));
+                temp.getLeague().addUser(temp);
+                temp.setStreak(rand.nextInt(366));
+                temp.setUnit(language.getUnits().get(0));
+                temp.setLastDoneQuiz(language.getUnits().get(0).getQuizList().get(0));
+
+            }
             return languages;
         }
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static List<League> setLeague() {
+        League bronzeLeague = new BronzeLeague();
+        League silverLeague = new SilverLeague();
+        League goldLeague = new GoldLeague();
+        League sapphireLeague = new SapphireLeague();
+        League rubyLeague = new RubyLeague();
+
+        List<League> leagues = new ArrayList<>();
+        leagues.add(bronzeLeague);
+        leagues.add(sapphireLeague);
+        leagues.add(silverLeague);
+        leagues.add(rubyLeague);
+        leagues.add(goldLeague);
+
+        return leagues;
     }
 
     private static void parsingUnitPart(String[] splitPart, Language language) {
@@ -80,7 +109,7 @@ public class ReadFile {
             // Check if a unit
             if (token.startsWith("Unit")) {
                 Unit unit = new Unit(token);
-
+                unit.setUnitNum(i);
                 language.addUnit(unit);
 
                 // Get quizzes for unit part

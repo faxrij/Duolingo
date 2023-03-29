@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Random;
 import Constant.Constants;
 
-public class WriteFile {
+public class WriteLanguagesFile {
     public static void generate() {
         try {
             FileWriter writer = new FileWriter("languages.csv");
