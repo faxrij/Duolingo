@@ -6,7 +6,6 @@ import entity.User;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class League implements ILeague{
 
@@ -24,13 +23,15 @@ public abstract class League implements ILeague{
 
     public List<User> getUserList() {
         Collections.sort(userList);
-
         return userList;
     }
 
     @Override
     public List<User> getTop3users() {
-        return getUserList().subList(0,3);
+        if (getUserList().size()>=3) {
+            return getUserList().subList(0,3);
+        }
+        return getUserList();
     }
 
     @Override

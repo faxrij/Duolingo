@@ -64,6 +64,7 @@ public class ReadFile {
                     }
                     user.setPoints(Integer.parseInt(line[5]));
                 }
+
                 user.setStreak(rand.nextInt(365)+1);
                 users.add(user); //add to the list.
             }
@@ -162,7 +163,8 @@ public class ReadFile {
             // Check if a unit
             if (token.startsWith("Unit")) {
                 currentUnit = new Unit(token);
-                currentUnit.setUnitNum(i);
+
+                currentUnit.setUnitNum(Integer.parseInt(token.replace("Unit","")));
                 language.addUnit(currentUnit);
 
                 // Get quizzes for unit part
@@ -173,7 +175,6 @@ public class ReadFile {
                 String[] quizTokens = splitPart[i+1].split(",");
                 currentQuiz = new Quiz(token);
 
-//                String[] questionTokens = quizTokens[0].split(" ");
                 parsingQuestionPart(currentQuiz, quizTokens);
                 assert currentUnit != null;
                 currentUnit.addQuiz(currentQuiz);

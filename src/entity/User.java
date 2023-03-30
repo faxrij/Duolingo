@@ -84,6 +84,7 @@ public class User implements IUser, Comparable<User>, Serializable {
         return points;
     }
 
+
     @Override
     public void takeQuiz(Quiz quiz) {
         Random rand = new Random();
@@ -123,12 +124,10 @@ public class User implements IUser, Comparable<User>, Serializable {
                 // user is already in the highest league
                 break;
         }
-
     }
 
     @Override
     public int compareTo(User u){
-        return Integer.compare(this.points, u.points);
-
+        return Integer.compare(u.points, this.points);
     }
 }

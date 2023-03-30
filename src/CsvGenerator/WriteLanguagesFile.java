@@ -63,7 +63,9 @@ public class WriteLanguagesFile {
     }
 
     private static boolean checkIfNumberOfQuestionsAreMoreThan15(int readingQuestions, int listeningQuestions, int speakingQuestions, int wordMatchingQuestions) {
-        return readingQuestions + listeningQuestions + speakingQuestions + wordMatchingQuestions > 15;
+        return readingQuestions + listeningQuestions + speakingQuestions + wordMatchingQuestions > 15
+                || readingQuestions + listeningQuestions + speakingQuestions + wordMatchingQuestions < 8
+                ;
     }
 
     private static void writeIntoFile(FileWriter writer, int j, int readingQuestions, int listeningQuestions, int speakingQuestions, int wordMatchingQuestions) throws IOException {

@@ -1,7 +1,11 @@
 package Interface;
 
 import entity.Unit;
+import entity.User;
+
+import java.util.List;
 
 public interface ILanguage {
-    public void addUnit(Unit unit);
+    void addUnit(Unit unit);
+    List<User> whoIsMostAdvanced();
 }

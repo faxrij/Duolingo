@@ -12,9 +12,7 @@ public class Unit {
         this.name = name;
         this.quizList = new ArrayList<>();
     }
-    public void setQuizList(List<Quiz> quizList) {
-        this.quizList = quizList;
-    }
+
     public void addQuiz(Quiz quiz) {
         quizList.add(quiz);
     }

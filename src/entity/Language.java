@@ -4,6 +4,7 @@ import Interface.ILanguage;
 import entity.league.League;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Language implements ILanguage {
@@ -11,10 +12,6 @@ public class Language implements ILanguage {
     private List<Unit> units;
     private List<League> leagues;
     private List<User> users;
-
-    public void setUnits(List<Unit> units) {
-        this.units = units;
-    }
 
     public void setLeagues(List<League> leagues) {
         this.leagues = leagues;
@@ -47,23 +44,33 @@ public class Language implements ILanguage {
         this.users = new ArrayList<>();
     }
 
-    public Language() {}
-
     public String getName() {
         return name;
-    }
-
-    public List<Unit> getUnitList() {
-        return units;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
     public void addUnit(Unit unit) {
         units.add(unit);
+    }
+
+    @Override
+    public List<User> whoIsMostAdvanced() {
+        int max = 0;
+        List<Integer> integerList = new ArrayList<>();
+        List<User> mostAdvancedNum = new ArrayList<>();
+
+        for (User temp: users) {
+            if (temp.getUnit().getUnitNum() >= max) {
+                integerList.add(temp.getUnit().getUnitNum());
+            }
+        }
+        max = Collections.max(integerList);
+        for (User temp : users) {
+            if (max == temp.getUnit().getUnitNum()) {
+                mostAdvancedNum.add(temp);
+            }
+        }
+        return mostAdvancedNum;
     }
 
 }

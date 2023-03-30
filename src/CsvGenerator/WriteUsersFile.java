@@ -44,8 +44,6 @@ public class WriteUsersFile {
 
             }
             outStream.close();
-
-            System.out.println("User list has been written to the file.");
         } catch (IOException ex) {
             throw new RuntimeException(ex);
 
