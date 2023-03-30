@@ -42,7 +42,6 @@ public class Mediator {
                 int currentQuizSize = userUnit.getQuizList().size();
 
                 if (currentQuizSize - (toBeIndex + quizToBeTaken) > 0) {
-
                     setUnitAndQuizWhenNoOverlap(user, quizToBeTaken, userUnit, toBeIndex);
                 }
                 else {
@@ -52,12 +51,10 @@ public class Mediator {
         }
         WriteUsersFile.writeIntoUsersFile(userList);
         List<User> asd = languages.get(1).getLeagues().get(1).getTop3users();
-        for (User a:asd
-             ) {
+        for (User a:asd) {
             System.out.println(a.getUserName());
-
         }
-        }
+    }
 
 
     private static void setUnitAndQuizWhenNoOverlap(User user, int quizToBeTaken, Unit userUnit, int toBeIndex) {
@@ -75,7 +72,9 @@ public class Mediator {
         int counter = 0;
 
         while (quizToBeTaken > 0) {
-
+            if (userUnit.equals(language.getUnits().get(language.getUnits().size()-1))) {
+                break;
+            }
             if (toBeDoneQuizIndex + counter == userUnit.getQuizList().size()) {
                 userUnit = language.getUnits().get(language.getUnits().indexOf(userUnit) + 1);
                 counter = 0;

@@ -21,7 +21,9 @@ public class Language implements ILanguage {
     }
 
     public void addLeague(League league) {
-        leagues.add(league);
+        if (!leagues.contains(league)) {
+            leagues.add(league);
+        }
     }
     public void addUser(User user) {
         users.add(user);

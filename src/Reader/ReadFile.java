@@ -13,11 +13,11 @@ public class ReadFile {
     public static List<User> readUsersFile(String filename) {
         List<User> users = new ArrayList<>(); //create a list
 
-
         try {
             File myObj = new File(filename);
             Scanner myReader = new Scanner(myObj);
             List<Language> languageList = readLanguageFile();
+            List<League> leagues = setLeague();
 
             while (myReader.hasNextLine()) {
                 String fileLine = myReader.nextLine();
@@ -25,6 +25,7 @@ public class ReadFile {
                 String name = line[0];                   //name
                 String password = line[1];              //password
                 User user = new User(name, password);
+                Random rand = new Random();
 
                 if (line.length > 2) {
                     for (Language temp: languageList) {
@@ -34,15 +35,36 @@ public class ReadFile {
                             break;
                         }
                     }
+                    League randomLeague = leagues.get(rand.nextInt(leagues.size()));
+                    randomLeague.addUser(user);
+                    user.setLeague(randomLeague);
+                    user.getLanguage().addLeague(randomLeague);
+
+                    int solvedQuizzes = Integer.parseInt(line[4]);
+                    List<Unit> units = user.getLanguage().getUnits();
+
+                    Quiz quiz = null;
+
+                    for (Unit unit: units) {
+                        if (solvedQuizzes < unit.getQuizList().size()) {
+                            quiz = unit.getQuizList().get(solvedQuizzes);
+                            break;
+                        }
+                        else {
+                            solvedQuizzes -= unit.getQuizList().size();
+                        }
+                    }
+
+                    user.setToBeDoneQuiz(quiz);
 
                     for (Unit temp: user.getLanguage().getUnits()) {
                         if (temp.getName().equals(line[3])) {
                             user.setUnit(temp);
                         }
                     }
-                    user.setPoints(Integer.parseInt(line[4]));
+                    user.setPoints(Integer.parseInt(line[5]));
                 }
-
+                user.setStreak(rand.nextInt(365)+1);
                 users.add(user); //add to the list.
             }
 
@@ -122,49 +144,75 @@ public class ReadFile {
 
         List<League> leagues = new ArrayList<>();
         leagues.add(bronzeLeague);
-        leagues.add(sapphireLeague);
         leagues.add(silverLeague);
-        leagues.add(rubyLeague);
         leagues.add(goldLeague);
+        leagues.add(sapphireLeague);
+        leagues.add(rubyLeague);
 
         return leagues;
     }
 
     private static void parsingUnitPart(String[] splitPart, Language language) {
+        Quiz currentQuiz = null;
+        Unit currentUnit = null;
+
         for (int i = 1; i < splitPart.length; i++) {
             String token = splitPart[i].trim();
 
             // Check if a unit
             if (token.startsWith("Unit")) {
-                Unit unit = new Unit(token);
-                unit.setUnitNum(i);
-                language.addUnit(unit);
+                currentUnit = new Unit(token);
+                currentUnit.setUnitNum(i);
+                language.addUnit(currentUnit);
 
                 // Get quizzes for unit part
-                if (i + 1 < splitPart.length && !splitPart[i + 1].startsWith("Unit")) {
-                    // create quizzes
-                    String[] quizTokens = splitPart[i + 1].split(",");
-                    Quiz quiz = new Quiz(quizTokens[0]);
+            }
+            else if (token.startsWith("Quiz")) {
 
-                    // Parsing Questions
-                    String[] questionTokens = splitPart[i + 2].split(";");
+                // Create a new quiz and parse its questions
+                String[] quizTokens = splitPart[i+1].split(",");
+                currentQuiz = new Quiz(token);
 
-                    parsingQuestionPart(quiz, questionTokens);
-                    unit.addQuiz(quiz);
-                    i++;
-                }
+//                String[] questionTokens = quizTokens[0].split(" ");
+                parsingQuestionPart(currentQuiz, quizTokens);
+                assert currentUnit != null;
+                currentUnit.addQuiz(currentQuiz);
             }
         }
+
+        // If we were in the middle of parsing a quiz when we reached the end, add it to the current unit
+        if (currentQuiz != null) {
+            currentUnit.addQuiz(currentQuiz);
+        }
+
     }
 
     private static void parsingQuestionPart(Quiz quiz, String[] questionList) {
+        String reading;
+        String listening;
+        String speaking;
+        String writing;
+
+        List<String> strings = new ArrayList<>();
         for (String question : questionList) {
-            String type = question.substring(question.length()-1);
+            reading = question.split(";")[0];
+            listening = question.split(";")[1];
+            speaking = question.split(";")[2];
+            writing = question.split(";")[3];
+
+            strings.add(reading);
+            strings.add(listening);
+            strings.add(speaking);
+            strings.add(writing);
+            break;
+        }
+        for (String question : strings) {
+
+            String type = question.substring(question.length() - 1);
             int num = Integer.parseInt(question.substring(0, question.length() - 1));
-            for (int l = 0; l<num; l++) {
+            for (int l = 0; l < num; l++) {
                 quiz.addQuestion(createQuestion(type));
             }
-
         }
     }
 }

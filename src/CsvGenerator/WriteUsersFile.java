@@ -35,6 +35,8 @@ public class WriteUsersFile {
                 outStream.write(";");
                 outStream.write(user.getLanguage().getName());
                 outStream.write(";");
+                outStream.write(user.getUnit().getName());
+                outStream.write(";");
                 outStream.write(String.valueOf(solvedQuizzes));
                 outStream.write(";");
                 outStream.write(String.valueOf(user.getPoints()));
