@@ -39,10 +39,6 @@ public abstract class League implements ILeague{
         userList.add(user);
     }
 
-    @Override
-    public void removeUser(User user) {
-        userList.remove(user);
-    }
-
     public abstract boolean checkRequirements(User user);
+
 }

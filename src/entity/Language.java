@@ -13,6 +13,13 @@ public class Language implements ILanguage {
     private List<League> leagues;
     private final List<User> users;
 
+    public Language(String name) {
+        this.name = name;
+        this.units = new ArrayList<>();
+        this.users = new ArrayList<>();
+        this.leagues = new ArrayList<>();
+    }
+
     public void setLeagues(List<League> leagues) {
         this.leagues = leagues;
     }
@@ -36,12 +43,6 @@ public class Language implements ILanguage {
 
     public List<League> getLeagues() {
         return leagues;
-    }
-
-    public Language(String name) {
-        this.name = name;
-        this.units = new ArrayList<>();
-        this.users = new ArrayList<>();
     }
 
     public String getName() {
@@ -71,6 +72,31 @@ public class Language implements ILanguage {
             }
         }
         return mostAdvancedNum;
+    }
+
+    @Override
+    public void checkIfUserExistsIn2Leagues(User user) {
+        boolean found = false;
+        for (League temp: leagues) {
+            if (temp.getUserList().contains(user)) {
+                if (found) {
+                    removeUserFrom1stLeague(user);
+                    break;
+                }
+                else {
+                    found = true;
+                }
+            }
+        }
+    }
+
+    private void removeUserFrom1stLeague(User user) {
+        for (League temp: leagues) {
+            if (temp.getUserList().contains(user)) {
+                temp.getUserList().remove(user);
+                break;
+            }
+        }
     }
 
 }

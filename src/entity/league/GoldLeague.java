@@ -15,6 +15,4 @@ public class GoldLeague extends League{
 
         return user.whichPlaceInTopRanking() <= 10;
     }
-
-
 }

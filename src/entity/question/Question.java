@@ -6,6 +6,7 @@ public abstract class Question {
     public Question(int point) {
         this.point = point;
     }
+
     public int getPoint() {
         return point;
     }

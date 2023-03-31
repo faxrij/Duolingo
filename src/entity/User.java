@@ -21,6 +21,16 @@ public class User implements IUser, Comparable<User>, Serializable {
 
     private Quiz toBeDoneQuiz;
 
+    public User() {
+        this.userName = null;
+        this.password = null;
+    }
+
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
     public Quiz getLastDoneQuiz() {
         return toBeDoneQuiz;
     }
@@ -47,15 +57,6 @@ public class User implements IUser, Comparable<User>, Serializable {
         this.unit = unit;
     }
 
-    public User() {
-        this.userName = null;
-        this.password = null;
-    }
-
-    public User(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-    }
 
     public void setPoints(int points) {
         this.points = points;
@@ -63,7 +64,6 @@ public class User implements IUser, Comparable<User>, Serializable {
     public void setLeague(League league) {
         this.league = league;
     }
-
 
     public Unit getUnit() {
         return this.unit;

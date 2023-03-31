@@ -13,9 +13,6 @@ public class Unit {
         this.quizList = new ArrayList<>();
     }
 
-    public void addQuiz(Quiz quiz) {
-        quizList.add(quiz);
-    }
     public String getName() {
         return this.name;
     }
@@ -25,10 +22,11 @@ public class Unit {
     public void setUnitNum(int num) {
         this.unitNum = num;
     }
-
-
     public List<Quiz> getQuizList() {
         return this.quizList;
     }
 
+    public void addQuiz(Quiz quiz) {
+        quizList.add(quiz);
+    }
 }

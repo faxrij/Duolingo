@@ -8,15 +8,15 @@ public class ListeningQuestion extends Question {
     private final String string;
     private final int audio;
 
-    public String getString() {
-        return string;
-    }
-
     public ListeningQuestion() {
         super(7);
         Random rand = new Random();
         this.string = CreateRandomString.getAlphaNumericString(5);
         this.audio = rand.nextInt(5) + 1;
+    }
+
+    public String getString() {
+        return string;
     }
 
     @Override

@@ -21,6 +21,7 @@ public class Mediator {
                 languages.add(user.getLanguage());
             }
         }
+
         for (Language language : languages) {
             List<Unit> units = language.getUnits();
 
@@ -53,6 +54,17 @@ public class Mediator {
 
         WriteUsersFile.writeIntoUsersFile(userList);
 
+        for (User temp: userList) {
+            temp.checkIfUserGetsToNextLeague();
+        }
+        // set user to next league, but no deletion. If we make user go higher and remove past league, it will make other users go high as well
+
+        for (Language temp : languages) {
+            for (User user: temp.getUsers()) {
+                temp.checkIfUserExistsIn2Leagues(user); // DELETE OVERFLOWING USERS HERE
+            }
+        }
+
         FirstQuery.getFirstQuery(userList);
 
         SecondQuery.getSecondQuery(languages);
@@ -72,7 +84,6 @@ public class Mediator {
         }
 
         user.setToBeDoneQuiz(userUnit.getQuizList().get(toBeIndex + quizToBeTaken));
-        user.checkIfUserGetsToNextLeague();
     }
 
     private static void setUnitAndQuizWhenOverlap(Language language, User user, int quizToBeTaken, Unit userUnit, int toBeDoneQuizIndex) {
@@ -97,7 +108,5 @@ public class Mediator {
             quizToBeTaken--;
 
         }
-
-        user.checkIfUserGetsToNextLeague();
     }
 }

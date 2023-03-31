@@ -9,7 +9,6 @@ public class LeagueFactory {
 
             user.setLeague(user.getLanguage().getLeagues().get(1));
             league.addUser(user);
-            user.getLanguage().getLeagues().get(0).removeUser(user);
         }
     }
 
@@ -19,7 +18,6 @@ public class LeagueFactory {
 
             user.setLeague(user.getLanguage().getLeagues().get(2));
             league.addUser(user);
-            user.getLanguage().getLeagues().get(1).removeUser(user);
         }
     }
 
@@ -29,7 +27,6 @@ public class LeagueFactory {
 
             user.setLeague(user.getLanguage().getLeagues().get(3));
             league.addUser(user);
-            user.getLanguage().getLeagues().get(2).removeUser(user);
         }
     }
 
@@ -39,8 +36,6 @@ public class LeagueFactory {
 
             user.setLeague(user.getLanguage().getLeagues().get(3));
             league.addUser(user);
-            user.getLanguage().getLeagues().get(2).removeUser(user);
         }
-
     }
 }

@@ -17,7 +17,10 @@ public class ReadFile {
             File myObj = new File(filename);
             Scanner myReader = new Scanner(myObj);
             List<Language> languageList = readLanguageFile();
-            List<League> leagues = setLeague();
+
+            for (Language lang: languageList) {
+                lang.setLeagues(setLeague());
+            }
 
             while (myReader.hasNextLine()) {
                 String fileLine = myReader.nextLine();
@@ -35,10 +38,10 @@ public class ReadFile {
                             break;
                         }
                     }
-                    League randomLeague = leagues.get(rand.nextInt(leagues.size()));
+                    List<League> list = user.getLanguage().getLeagues();
+                    League randomLeague = list.get(rand.nextInt(list.size()));
                     randomLeague.addUser(user);
                     user.setLeague(randomLeague);
-                    user.getLanguage().addLeague(randomLeague);
 
                     int solvedQuizzes = Integer.parseInt(line[4]);
                     List<Unit> units = user.getLanguage().getUnits();
@@ -65,12 +68,13 @@ public class ReadFile {
                     }
                     user.setPoints(Integer.parseInt(line[5]));
                 }
+                else {
+                    firstRunOnly(user, languageList);
+                }
 
                 user.setStreak(rand.nextInt(365)+1);
                 users.add(user); //add to the list.
             }
-
-            firstRunOnly(users, languageList);
             myReader.close();
 
         } catch (FileNotFoundException e) {
@@ -105,7 +109,6 @@ public class ReadFile {
                 // Create new language if it doesn't exist
                 if (language == null) {
                     language = new Language(languageName);
-                    language.setLeagues(setLeague());
                     languages.add(language);
                 }
 
@@ -120,21 +123,21 @@ public class ReadFile {
         }
     }
 
-    private static void firstRunOnly(List<User> users, List<Language> languages) {
-        for (User temp : users) {
-            if (temp.getLanguage()!=null) {
-                break;
-            }
-            Random rand = new Random();
-            Language language = languages.get(rand.nextInt(4));
-            language.addUser(temp);
-            temp.setLanguage(language);
-            temp.setLeague(language.getLeagues().get(0));
-            temp.getLeague().addUser(temp);
-            temp.setStreak(rand.nextInt(366));
-            temp.setUnit(language.getUnits().get(0));
-            temp.setToBeDoneQuiz(language.getUnits().get(0).getQuizList().get(0));
+    private static void firstRunOnly(User temp, List<Language> languages) {
+        Random rand = new Random();
+        for (Language tempLang: languages) {
+            tempLang.setLeagues(setLeague());
         }
+
+        Language language = languages.get(rand.nextInt(4));
+
+        language.addUser(temp);
+        temp.setLanguage(language);
+        temp.setLeague(language.getLeagues().get(0));
+        temp.getLeague().addUser(temp);
+        temp.setUnit(language.getUnits().get(0));
+        temp.setToBeDoneQuiz(language.getUnits().get(0).getQuizList().get(0));
+
     }
 
     private static List<League> setLeague() {
@@ -155,7 +158,7 @@ public class ReadFile {
     }
 
     private static void parsingUnitPart(String[] splitPart, Language language) {
-        Quiz currentQuiz = null;
+        Quiz currentQuiz;
         Unit currentUnit = null;
 
         for (int i = 1; i < splitPart.length; i++) {
@@ -164,7 +167,7 @@ public class ReadFile {
             // Check if a unit
             if (token.startsWith("Unit")) {
                 currentUnit = new Unit(token);
-
+                // Replace Unit56 with 56 to get unitNumber
                 currentUnit.setUnitNum(Integer.parseInt(token.replace("Unit","")));
                 language.addUnit(currentUnit);
 
@@ -172,7 +175,7 @@ public class ReadFile {
             }
             else if (token.startsWith("Quiz")) {
 
-                // Create a new quiz and parse its questions
+                // Create a new quiz and get its questions
                 String[] quizTokens = splitPart[i+1].split(",");
                 currentQuiz = new Quiz(token);
 
@@ -181,12 +184,6 @@ public class ReadFile {
                 currentUnit.addQuiz(currentQuiz);
             }
         }
-
-        // If we were in the middle of parsing a quiz when we reached the end, add it to the current unit
-        if (currentQuiz != null) {
-            currentUnit.addQuiz(currentQuiz);
-        }
-
     }
 
     private static void parsingQuestionPart(Quiz quiz, String[] questionList) {
@@ -197,10 +194,11 @@ public class ReadFile {
 
         List<String> strings = new ArrayList<>();
         for (String question : questionList) {
-            reading = question.split(";")[0];
-            listening = question.split(";")[1];
-            speaking = question.split(";")[2];
-            writing = question.split(";")[3];
+            String[] splitArray = question.split(";");
+            reading = splitArray[0];
+            listening = splitArray[1];
+            speaking = splitArray[2];
+            writing = splitArray[3];
 
             strings.add(reading);
             strings.add(listening);
