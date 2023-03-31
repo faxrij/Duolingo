@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Unit {
-    private String name;
+    private final String name;
     private int unitNum;
-    private List<Quiz> quizList;
+    private final List<Quiz> quizList;
 
     public Unit(String name) {
         this.name = name;

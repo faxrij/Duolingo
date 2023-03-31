@@ -8,10 +8,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class Language implements ILanguage {
-    private String name;
-    private List<Unit> units;
+    private final String name;
+    private final List<Unit> units;
     private List<League> leagues;
-    private List<User> users;
+    private final List<User> users;
 
     public void setLeagues(List<League> leagues) {
         this.leagues = leagues;

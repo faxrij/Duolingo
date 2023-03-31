@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Random;
 
 public class User implements IUser, Comparable<User>, Serializable {
-    private String userName;
-    private String password;
+    private final String userName;
+    private final String password;
     private League league;
     private int points;
     private Language language;

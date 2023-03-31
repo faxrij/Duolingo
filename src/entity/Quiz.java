@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Quiz {
-    private String name;
-    private List<Question> questionList;
+    private final String name;
+    private final List<Question> questionList;
 
     public Quiz(String name) {
         this.name = name;
@@ -16,10 +16,6 @@ public class Quiz {
 
     public List<Question> getQuestionList() {
         return questionList;
-    }
-
-    public void setQuestionList(List<Question> question) {
-        this.questionList = question;
     }
 
     public void addQuestion(Question question) {

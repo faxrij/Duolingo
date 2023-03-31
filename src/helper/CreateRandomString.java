@@ -1,6 +1,7 @@
 package helper;
 
 public class CreateRandomString {
+    // THIS CLASS IS USED IN GENERATION OF QUESTIONS -> For Reading Question, 2 strings are generated.
     public static String getAlphaNumericString(int n) {
 
         // choose a Character random from this String

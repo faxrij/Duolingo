@@ -4,9 +4,9 @@ import Reader.ReadFile;
 import entity.Language;
 import entity.Unit;
 import entity.User;
+import query.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -50,82 +50,18 @@ public class Mediator {
                 }
             }
         }
+
         WriteUsersFile.writeIntoUsersFile(userList);
 
-        int max = 0;
+        FirstQuery.getFirstQuery(userList);
 
-        List<User> users = new ArrayList<>();
-        for (User temp: userList) {
-            if (temp.getPoints() > max) {
-                max = temp.getPoints();
-            }
-        }
-        for (User temp: userList) {
-            if (temp.getPoints()==max) {
-                users.add(temp);
-            }
-        }
+        SecondQuery.getSecondQuery(languages);
 
-        System.out.print("1- ");
+        ThirdQuery.getThirdQuery(languages);
 
-        for (User temp: users) {
-            System.out.print(temp.getUserName() + " " + temp.getPoints() + " points");
-        }
+        FourthQuery.getFourthQuery(languages);
 
-        Language german = languages.get(2);
-        List<User> advancedUsers = german.whoIsMostAdvanced();
-
-        System.out.print("\n2- ");
-        for (User temp: advancedUsers) {
-            System.out.print(temp.getUserName() + " Unit " + temp.getUnit().getUnitNum() + " ");
-        }
-
-        System.out.print("\n3- ");
-
-        List<Language> languageList = new ArrayList<>();
-        max = 0;
-        for (Language temp: languages) {
-            if (temp.getUnits().size() > max) {
-                max = temp.getUnits().size();
-            }
-        }
-
-        for (Language temp: languages) {
-            if (temp.getUnits().size()==max) {
-                languageList.add(temp);
-            }
-        }
-
-        for (Language temp: languageList) {
-            System.out.print(temp.getName() + " " + temp.getUnits().size() + " Units");
-        }
-
-
-        List<Integer> integerList = new ArrayList<>();
-        int quizNum = 0;
-
-        for (Language temp: languages) {
-            for (Unit unit : temp.getUnits()) {
-                quizNum += unit.getQuizList().size();
-            }
-            integerList.add(quizNum);
-            quizNum = 0;
-        }
-
-        int maxNumOfQuiz = Collections.max(integerList);
-        int indexOf = integerList.indexOf(maxNumOfQuiz);
-
-        System.out.print("\n4- ");
-        System.out.print(languages.get(indexOf).getName() + " " + maxNumOfQuiz + " Quizzes");
-
-
-        List<User> asd = languages.get(1).getLeagues().get(1).getTop3users();
-        System.out.print("\n"+"5- Italian Silver League Top " + asd.size() + ": ");
-        int i =1;
-        for (User a:asd) {
-            System.out.print(i + "." + a.getUserName() + " ");
-            i++;
-        }
+        FifthQuery.getFifthQuery(languages);
     }
 
 
@@ -165,4 +101,3 @@ public class Mediator {
         user.checkIfUserGetsToNextLeague();
     }
 }
-

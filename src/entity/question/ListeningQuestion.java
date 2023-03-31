@@ -5,17 +5,13 @@ import helper.CreateRandomString;
 import java.util.Random;
 
 public class ListeningQuestion extends Question {
-    private String string;
+    private final String string;
+    private final int audio;
 
     public String getString() {
         return string;
     }
 
-    public int getAudio() {
-        return audio;
-    }
-
-    private int audio;
     public ListeningQuestion() {
         super(7);
         Random rand = new Random();

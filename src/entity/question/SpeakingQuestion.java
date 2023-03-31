@@ -3,16 +3,8 @@ package entity.question;
 import java.util.Random;
 
 public class SpeakingQuestion extends Question {
-    private int listenedAudio;
-    private int spokenAudio;
-
-    public int getListenedAudio() {
-        return listenedAudio;
-    }
-
-    public int getSpokenAudio() {
-        return spokenAudio;
-    }
+    private final int listenedAudio;
+    private final int spokenAudio;
 
     public SpeakingQuestion() {
         super(8);

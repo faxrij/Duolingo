@@ -9,8 +9,8 @@ import java.util.List;
 
 public abstract class League implements ILeague{
 
-    private String name;
-    private List<User> userList;
+    private final String name;
+    private final List<User> userList;
 
     public League(String name) {
         this.name = name;

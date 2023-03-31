@@ -3,8 +3,8 @@ package entity.question;
 import helper.CreateRandomString;
 
 public class WordMatchingQuestion extends Question {
-    private String actualString;
-    private String providedString;
+    private final String actualString;
+    private final String providedString;
 
     public WordMatchingQuestion() {
         super(5);

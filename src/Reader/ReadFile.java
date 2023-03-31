@@ -21,7 +21,7 @@ public class ReadFile {
 
             while (myReader.hasNextLine()) {
                 String fileLine = myReader.nextLine();
-                String[] line = fileLine.split(";");     //separate lines for get names,password attributes.
+                String[] line = fileLine.split(";");     //separate lines for get names,password, and other attributes.
                 String name = line[0];                   //name
                 String password = line[1];              //password
                 User user = new User(name, password);
@@ -60,6 +60,7 @@ public class ReadFile {
                     for (Unit temp: user.getLanguage().getUnits()) {
                         if (temp.getName().equals(line[3])) {
                             user.setUnit(temp);
+                            break;
                         }
                     }
                     user.setPoints(Integer.parseInt(line[5]));

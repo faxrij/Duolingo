@@ -3,8 +3,8 @@ package entity.question;
 import helper.CreateRandomString;
 
 public class ReadingQuestion extends Question {
-    private String stringInEnglish;
-    private String stringInSelectedLanguage;
+    private final String stringInEnglish;
+    private final String stringInSelectedLanguage;
     public ReadingQuestion() {
         super(10);
         this.stringInSelectedLanguage = CreateRandomString.getAlphaNumericString(5);

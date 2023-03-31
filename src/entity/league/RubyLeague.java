@@ -2,8 +2,6 @@ package entity.league;
 
 import entity.User;
 
-import java.util.List;
-
 public class RubyLeague extends League{
     public RubyLeague() {
         super("Ruby");
