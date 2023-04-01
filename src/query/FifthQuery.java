@@ -7,7 +7,7 @@ import helper.GetLanguageFromList;
 import java.util.List;
 
 public class FifthQuery {
-    public static void getFifthQuery(List<Language> languages) {
+    public void getFifthQuery(List<Language> languages) {
         int index = GetLanguageFromList.getLanguage(languages, "Italian");
         if (index != -1) {
             List<User> asd = languages.get(index).getLeagues().get(1).getTop3users();

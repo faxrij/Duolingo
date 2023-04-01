@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FirstQuery {
-    public static void getFirstQuery(List<User> userList) {
+    public void getFirstQuery(List<User> userList) {
         int max = 0;
 
         List<User> users = new ArrayList<>();

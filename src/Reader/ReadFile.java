@@ -10,7 +10,7 @@ import static entity.question.Question.createQuestion;
 
 public class ReadFile {
 
-    public static List<User> readUsersFile(String filename) {
+    public List<User> readUsersFile(String filename) {
         List<User> users = new ArrayList<>(); //create a list
 
         try {

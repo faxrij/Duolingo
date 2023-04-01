@@ -7,7 +7,7 @@ import helper.GetLanguageFromList;
 import java.util.List;
 
 public class SecondQuery {
-    public static void getSecondQuery(List<Language> languages) {
+    public void getSecondQuery(List<Language> languages) {
         int index = GetLanguageFromList.getLanguage(languages, "German");
 
         if (index != -1) {

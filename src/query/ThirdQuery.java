@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ThirdQuery {
-    public static void getThirdQuery(List<Language> languages) {
+    public void getThirdQuery(List<Language> languages) {
         System.out.print("\n3- ");
 
         List<Language> languageList = new ArrayList<>();

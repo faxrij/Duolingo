@@ -11,9 +11,13 @@ import java.util.List;
 import java.util.Random;
 
 public class Mediator {
-    public static void mainMethod () {
-        WriteLanguagesFile.generate();
-        List<User> userList = ReadFile.readUsersFile("users.csv");
+    public void mainMethod () {
+        WriteLanguagesFile writeLanguagesFile = new WriteLanguagesFile();
+        writeLanguagesFile.write();
+
+        ReadFile readFile = new ReadFile();
+
+        List<User> userList = readFile.readUsersFile("users.csv");
         List<Language> languages = new ArrayList<>();
 
         for (User user: userList) {
@@ -51,8 +55,9 @@ public class Mediator {
                 }
             }
         }
+        WriteUsersFile writeUsersFile = new WriteUsersFile();
 
-        WriteUsersFile.writeIntoUsersFile(userList);
+        writeUsersFile.writeIntoUsersFile(userList);
 
         for (User temp: userList) {
             temp.checkIfUserGetsToNextLeague();
@@ -65,17 +70,22 @@ public class Mediator {
             }
         }
 
-        FirstQuery.getFirstQuery(userList);
+        FirstQuery firstQuery = new FirstQuery();
+        firstQuery.getFirstQuery(userList);
 
-        SecondQuery.getSecondQuery(languages);
+        SecondQuery secondQuery = new SecondQuery();
+        secondQuery.getSecondQuery(languages);
 
-        ThirdQuery.getThirdQuery(languages);
+        ThirdQuery thirdQuery = new ThirdQuery();
+        thirdQuery.getThirdQuery(languages);
 
-        FourthQuery.getFourthQuery(languages);
+        FourthQuery fourthQuery = new FourthQuery();
+        fourthQuery.getFourthQuery(languages);
 
-        FifthQuery.getFifthQuery(languages);
+        FifthQuery fifthQuery = new FifthQuery();
+        fifthQuery.getFifthQuery(languages);
     }
-
+    
 
     private static void setUnitAndQuizWhenNoOverlap(User user, int quizToBeTaken, Unit userUnit, int toBeIndex) {
         for (int i = 0; i < quizToBeTaken; i++) {

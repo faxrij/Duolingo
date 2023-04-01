@@ -1,6 +1,7 @@
 
 public class Main {
     public static void main(String[] args) {
-        Mediator.mainMethod();
+        Mediator mediator = new Mediator();
+        mediator.mainMethod();
     }
 }

@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class FourthQuery {
-    public static void getFourthQuery(List<Language> languages) {
+    public void getFourthQuery(List<Language> languages) {
         List<Integer> integerList = new ArrayList<>();
         int quizNum = 0;
 

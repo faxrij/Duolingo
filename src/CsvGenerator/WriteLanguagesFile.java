@@ -7,7 +7,7 @@ import java.util.Random;
 import Constant.Constants;
 
 public class WriteLanguagesFile {
-    public static void generate() {
+    public void write() {
         try {
             File file = new File("languages.csv");
             if(file.length()!=0) {

@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.List;
 
 public class WriteUsersFile {
-    public static void writeIntoUsersFile(List<User> users) {
+    public void writeIntoUsersFile(List<User> users) {
 
         try {
             BufferedWriter outStream= new BufferedWriter(new FileWriter("users.csv"));
