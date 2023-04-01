@@ -84,7 +84,7 @@ public class ReadFile {
         return users;
     }
 
-    public static List<Language> readLanguageFile() {
+    public List<Language> readLanguageFile() {
         List<Language> languages = new ArrayList<>();
 
         try {
@@ -123,7 +123,7 @@ public class ReadFile {
         }
     }
 
-    private static void firstRunOnly(User temp, List<Language> languages) {
+    private void firstRunOnly(User temp, List<Language> languages) {
         Random rand = new Random();
         for (Language tempLang: languages) {
             tempLang.setLeagues(setLeague());
@@ -140,7 +140,7 @@ public class ReadFile {
 
     }
 
-    private static List<League> setLeague() {
+    private List<League> setLeague() {
         League bronzeLeague = new BronzeLeague();
         League silverLeague = new SilverLeague();
         League goldLeague = new GoldLeague();
@@ -157,7 +157,7 @@ public class ReadFile {
         return leagues;
     }
 
-    private static void parsingUnitPart(String[] splitPart, Language language) {
+    private void parsingUnitPart(String[] splitPart, Language language) {
         Quiz currentQuiz;
         Unit currentUnit = null;
 
@@ -186,7 +186,7 @@ public class ReadFile {
         }
     }
 
-    private static void parsingQuestionPart(Quiz quiz, String[] questionList) {
+    private void parsingQuestionPart(Quiz quiz, String[] questionList) {
         String reading;
         String listening;
         String speaking;

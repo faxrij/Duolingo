@@ -43,7 +43,7 @@ public class WriteLanguagesFile {
         }
     }
 
-    private static boolean setUpRandomQuestions(FileWriter writer, Random rand, int j) throws IOException {
+    private boolean setUpRandomQuestions(FileWriter writer, Random rand, int j) throws IOException {
         int readingQuestions = rand.nextInt(12) + 1;
 
         int listeningQuestions = rand.nextInt(16 - readingQuestions) + 1;
@@ -62,13 +62,13 @@ public class WriteLanguagesFile {
         return false;
     }
 
-    private static boolean checkIfNumberOfQuestionsAreMoreThan15(int readingQuestions, int listeningQuestions, int speakingQuestions, int wordMatchingQuestions) {
+    private boolean checkIfNumberOfQuestionsAreMoreThan15(int readingQuestions, int listeningQuestions, int speakingQuestions, int wordMatchingQuestions) {
         return readingQuestions + listeningQuestions + speakingQuestions + wordMatchingQuestions > 15
                 || readingQuestions + listeningQuestions + speakingQuestions + wordMatchingQuestions < 8
                 ;
     }
 
-    private static void writeIntoFile(FileWriter writer, int j, int readingQuestions, int listeningQuestions, int speakingQuestions, int wordMatchingQuestions) throws IOException {
+    private void writeIntoFile(FileWriter writer, int j, int readingQuestions, int listeningQuestions, int speakingQuestions, int wordMatchingQuestions) throws IOException {
         writer.append(",Quiz").append(String.valueOf(j)).append(",")
                 .append(String.valueOf(readingQuestions)).append("R").append(";")
                 .append(String.valueOf(listeningQuestions)).append("L").append(";")

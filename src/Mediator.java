@@ -85,9 +85,9 @@ public class Mediator {
         FifthQuery fifthQuery = new FifthQuery();
         fifthQuery.getFifthQuery(languages);
     }
-    
 
-    private static void setUnitAndQuizWhenNoOverlap(User user, int quizToBeTaken, Unit userUnit, int toBeIndex) {
+
+    private void setUnitAndQuizWhenNoOverlap(User user, int quizToBeTaken, Unit userUnit, int toBeIndex) {
         for (int i = 0; i < quizToBeTaken; i++) {
 
             user.takeQuiz(userUnit.getQuizList().get(toBeIndex + i));
@@ -96,7 +96,7 @@ public class Mediator {
         user.setToBeDoneQuiz(userUnit.getQuizList().get(toBeIndex + quizToBeTaken));
     }
 
-    private static void setUnitAndQuizWhenOverlap(Language language, User user, int quizToBeTaken, Unit userUnit, int toBeDoneQuizIndex) {
+    private void setUnitAndQuizWhenOverlap(Language language, User user, int quizToBeTaken, Unit userUnit, int toBeDoneQuizIndex) {
 
         int counter = 0;
 
