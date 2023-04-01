@@ -2,17 +2,22 @@ package query;
 
 import entity.Language;
 import entity.User;
+import helper.GetLanguageFromList;
 
 import java.util.List;
 
 public class SecondQuery {
     public static void getSecondQuery(List<Language> languages) {
-        Language german = languages.get(2);
-        List<User> advancedUsers = german.whoIsMostAdvanced();
+        int index = GetLanguageFromList.getLanguage(languages, "German");
 
-        System.out.print("\n2- ");
-        for (User temp: advancedUsers) {
-            System.out.print(temp.getUserName() + " Unit " + temp.getUnit().getUnitNum() + " ");
+        if (index != -1) {
+            Language german = languages.get(index);
+            List<User> advancedUsers = german.whoIsMostAdvanced();
+
+            System.out.print("\n2- ");
+            for (User temp: advancedUsers) {
+                System.out.print(temp.getUserName() + " Unit " + temp.getUnit().getUnitNum() + " ");
+            }
         }
     }
 }
