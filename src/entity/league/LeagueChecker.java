@@ -2,7 +2,7 @@ package entity.league;
 
 import entity.User;
 
-public class LeagueFactory {
+public class LeagueChecker {
     public static void getSilverLeague(User user) {
         League league = user.getLanguage().getLeagues().get(1);
         if (league.checkRequirements(user)) {

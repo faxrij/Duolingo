@@ -109,16 +109,16 @@ public class User implements IUser, Comparable<User>, Serializable {
 
         switch (currentLeague.getName()) {
             case "Bronze":
-                LeagueFactory.getSilverLeague(this);
+                LeagueChecker.getSilverLeague(this);
                 break;
             case "Silver":
-                LeagueFactory.getGoldLeague(this);
+                LeagueChecker.getGoldLeague(this);
                 break;
             case "Gold":
-                LeagueFactory.getSapphireLeague(this);
+                LeagueChecker.getSapphireLeague(this);
                 break;
             case "Sapphire":
-                LeagueFactory.getRubyLeague(this);
+                LeagueChecker.getRubyLeague(this);
                 break;
             default:
                 // user is already in the highest league
