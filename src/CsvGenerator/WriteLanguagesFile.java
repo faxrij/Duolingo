@@ -44,17 +44,17 @@ public class WriteLanguagesFile {
     }
 
     private boolean setUpRandomQuestions(FileWriter writer, Random rand, int j) throws IOException {
-        int readingQuestions = rand.nextInt(12) + 1;
+        int readingQuestions = rand.nextInt(16);
 
-        int listeningQuestions = rand.nextInt(16 - readingQuestions) + 1;
+        int listeningQuestions = rand.nextInt(16 - readingQuestions);
 
         if (checkIfNumberOfQuestionsAreMoreThan15(readingQuestions, listeningQuestions, 0, 0)) return true;
 
-        int speakingQuestions = rand.nextInt(16 - readingQuestions - listeningQuestions) + 1;
+        int speakingQuestions = rand.nextInt(16 - readingQuestions - listeningQuestions);
 
         if (checkIfNumberOfQuestionsAreMoreThan15(readingQuestions, listeningQuestions, speakingQuestions, 0)) return true;
 
-        int wordMatchingQuestions = rand.nextInt(16 - readingQuestions - listeningQuestions - speakingQuestions) + 1;
+        int wordMatchingQuestions = rand.nextInt(16 - readingQuestions - listeningQuestions - speakingQuestions);
 
         if (checkIfNumberOfQuestionsAreMoreThan15(readingQuestions, listeningQuestions, speakingQuestions, wordMatchingQuestions)) return true;
 
