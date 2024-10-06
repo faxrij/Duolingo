@@ -1,4 +1,4 @@
-package Constant;
+package constant;
 
 public final class Constants {
         public static final String[] LANGUAGES = {"Spanish", "Italian", "German", "Turkish"};

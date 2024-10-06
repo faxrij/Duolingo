@@ -1,4 +1,4 @@
-package Interface;
+package interface;
 
 import entity.Unit;
 import entity.User;

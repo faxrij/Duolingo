@@ -1,4 +1,4 @@
-package CsvGenerator;
+package csvGenerator;
 
 import entity.Quiz;
 import entity.Unit;

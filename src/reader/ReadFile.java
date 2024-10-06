@@ -1,4 +1,4 @@
-package Reader;
+package reader;
 
 import entity.*;
 import entity.league.*;

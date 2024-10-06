@@ -1,4 +1,4 @@
-package CsvGenerator;
+package csvGenerator;
 
 import java.io.File;
 import java.io.FileWriter;
